@@ -67,5 +67,14 @@ async def on_message(message):
       phraseTotal+=kamouloxLine+ " " +kamouloxMots+ " "
     await message.channel.send(phraseTotal)
 
+#Error handling
+@bot.event
+async def on_error(event, *args, **kwargs):
+  with open('err.log', 'a') as f:
+    if event == "on_message":
+      f.write( f.write(f'Unhandled message: {args[0]}\n'))
+    else:
+      raise
+
 keep_alive()
 client.run(os.getenv('DISCORD_TOKEN'))
